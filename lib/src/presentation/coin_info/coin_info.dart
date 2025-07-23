@@ -1,8 +1,7 @@
 import 'package:cryptomann/src/data/coin/coin.dart';
 import 'package:cryptomann/src/constants/router/router.dart';
-import 'package:cryptomann/src/presentation/coin_info/widgets/row_info.dart';
-import 'package:cryptomann/src/presentation/home/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:cryptomann/src/presentation/coin_info/widgets/row_info.dart';
 
 class CoinInfo extends StatefulWidget {
   const CoinInfo({super.key});
