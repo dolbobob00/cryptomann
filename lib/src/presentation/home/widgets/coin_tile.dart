@@ -1,6 +1,5 @@
 import 'package:cryptomann/src/data/coin/coin.dart';
 import 'package:cryptomann/src/constants/router/router.dart';
-import 'package:cryptomann/src/presentation/coin_info/coin_info.dart';
 import 'package:flutter/material.dart';
 
 class CoinTile extends StatelessWidget {

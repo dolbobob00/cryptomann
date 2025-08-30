@@ -1,6 +1,8 @@
 import 'dart:async';
 
-import 'package:cryptomann/src/domain/repository/coins_repo/abstract_coins_repo.dart';
+import 'package:cryptomann/src/constants/router/router.dart';
+import 'package:cryptomann/src/data/repository/coins_repo/abstract_coins_repo.dart';
+import 'package:cryptomann/src/domain/service_locator.dart';
 
 import 'package:cryptomann/src/presentation/home/bloc/home_bloc.dart';
 import 'package:cryptomann/src/presentation/home/widgets/coin_tile.dart';
@@ -8,6 +10,7 @@ import 'package:cryptomann/src/presentation/home/widgets/coin_tile.dart';
 import 'package:cryptomann/src/presentation/home/widgets/settings_dialogue.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -45,6 +48,20 @@ class HomePage extends StatelessWidget {
             Icons.settings,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              routerKey.currentState?.push(MaterialPageRoute(
+                builder: (context) => TalkerScreen(
+                  talker: getIt<Talker>(),
+                ),
+              ));
+            },
+            icon: Icon(
+              Icons.document_scanner,
+            ),
+          ),
+        ],
         centerTitle: true,
         bottomOpacity: 0,
       ),
@@ -52,17 +69,29 @@ class HomePage extends StatelessWidget {
         onRefresh: () async {
           final completer = Completer();
           getCoins(completer: completer);
-          return  completer.future;
+          return completer.future;
         },
         child: BlocBuilder<CoinsBloc, CoinsState>(
           bloc: bloc,
           builder: (context, state) {
             if (state is CoinsError) {
-              return Center(
-                child: Text(
-                  state.error ?? 'Error, try again.',
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
+              return Column(
+                children: [
+                  Center(
+                    child: Text(
+                      state.error ?? 'Error, try again.',
+                      style: Theme.of(context).textTheme.labelSmall,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      getCoins();
+                    },
+                    child: Text(
+                      'Retry',
+                    ),
+                  ),
+                ],
               );
             } else if (state is CoinsLoading) {
               return Center(

@@ -1,17 +1,30 @@
 part of 'home_bloc.dart';
 
-sealed class CoinsState {}
 
-class CoinsInitial implements CoinsState {}
+sealed class CoinsState extends Equatable {}
 
-class CoinsLoading implements CoinsState {}
-
-class CoinsLoaded implements CoinsState {
-  final List<Coin> coins;
-  CoinsLoaded({required this.coins});
+class CoinsInitial extends CoinsState {
+  @override
+  List<Object?> get props => [];
 }
 
-class CoinsError implements CoinsState {
-  String? error;
+class CoinsLoading extends CoinsState {
+  @override
+  List<Object?> get props => [];
+}
+
+class CoinsLoaded extends CoinsState {
+  final List<Coin> coins;
+  CoinsLoaded({required this.coins});
+
+  @override
+  List<Object?> get props => [coins];
+}
+
+class CoinsError extends CoinsState {
+  final String? error;
   CoinsError({this.error});
+
+  @override
+  List<Object?> get props => [error];
 }

@@ -1,8 +1,7 @@
 import 'package:cryptomann/src/data/coin/coin.dart';
 import 'package:cryptomann/src/constants/router/router.dart';
+import 'package:cryptomann/src/presentation/coin_info/widgets/card_wrapper.dart';
 import 'package:flutter/material.dart';
-import 'package:cryptomann/src/presentation/coin_info/widgets/row_info.dart';
-
 class CoinInfo extends StatefulWidget {
   const CoinInfo({super.key});
 
@@ -13,6 +12,8 @@ class CoinInfo extends StatefulWidget {
 class _CoinInfoState extends State<CoinInfo> {
   late final Coin coin;
   late final String heroTag;
+
+  // Taking arguments from Routing
   @override
   void didChangeDependencies() {
     final arg = ModalRoute.of(context)?.settings.arguments;
@@ -35,11 +36,22 @@ class _CoinInfoState extends State<CoinInfo> {
             pinned: true,
             snap: true,
             expandedHeight: 200,
+            backgroundColor: Colors.transparent,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.network(
-                'https://wallpapers.com/images/high/re-zero-ram-1920-x-1080-wallpaper-61f4p7ddgtnasc3b.webp',
+              background: Center(
+                child: Hero(
+                  tag: heroTag,
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundImage: NetworkImage(coin.imageUrl),
+                  ),
+                ),
               ),
-              title: Text(coin.title),
+              title: Text(
+                coin.title,
+                style: themeof.textTheme.labelLarge,
+                textAlign: TextAlign.center,
+              ),
             ),
             leading: IconButton(
               onPressed: () => routerKey.currentState?.pop(),
@@ -50,55 +62,48 @@ class _CoinInfoState extends State<CoinInfo> {
             automaticallyImplyLeading: false,
             pinned: true,
             backgroundColor: Colors.transparent,
+            toolbarHeight: 170,
             flexibleSpace: FlexibleSpaceBar(
-              background: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Hero(
-                        tag: heroTag,
-                        child: CircleAvatar(
-                          radius: 24,
-                          backgroundImage: NetworkImage(
-                            coin.imageUrl,
+              background: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  CardWrapper(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'Current price: ${coin.price}',
+                            style: themeof.textTheme.labelLarge,
                           ),
-                        ),
+                        ],
                       ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      RowInfo(
-                        text: coin.price,
-                        iconPlace: Icon(
-                          Icons.money,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      RowInfo(
-                        text: coin.changePerDay,
-                        iconPlace: Icon(
-                          Icons.event,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      RowInfo(
-                        text: coin.changePerDay.contains('-')
-                            ? 'Buy now!'
-                            : 'Sell now!',
-                        iconPlace: Icon(
-                          Icons.money,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                  CardWrapper(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'Change per day: ${coin.changePerDay}',
+                            style: themeof.textTheme.labelSmall,
+                          ),
+                          Text(
+                            'Low: ${coin.lowDay}',
+                            style: themeof.textTheme.labelSmall,
+                          ),
+                          Text(
+                            'High: ${coin.highDay}',
+                            style: themeof.textTheme.labelSmall,
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           ),

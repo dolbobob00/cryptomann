@@ -26,6 +26,15 @@ class Themes with ChangeNotifier {
     colorSchemeSeed: Colors.yellow,
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.amber[300],
+      iconTheme: IconThemeData(
+        color: Colors.white,
+      ),
+    ),
+    cardTheme: CardThemeData(
+      color: Colors.grey[800],
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
     ),
     iconTheme: IconThemeData(
       color: Colors.white,
@@ -40,6 +49,11 @@ class Themes with ChangeNotifier {
       labelMedium: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.w400,
+        color: Colors.white,
+      ),
+      labelLarge: TextStyle(
+        fontSize: 22,
+        fontWeight: FontWeight.w500,
         color: Colors.white,
       ),
     ),

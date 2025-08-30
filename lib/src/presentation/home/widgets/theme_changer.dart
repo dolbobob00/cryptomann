@@ -1,6 +1,5 @@
 import 'package:cryptomann/src/constants/theme/theme.dart';
 import 'package:cryptomann/src/domain/service_locator.dart';
-import 'package:cryptomann/src/domain/settings/settings.dart';
 import 'package:flutter/material.dart';
 
 class ThemeChanger extends StatefulWidget {

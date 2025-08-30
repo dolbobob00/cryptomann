@@ -1,0 +1,15 @@
+Completer. finally {Completer.Complete} через конструктор эвента прокидывать Nullable??
+Equatable обмазывать то что может повториться для оптимизации
+Под капотом сам при создании нью класса проверяет не было ли такого уже
+
+RunZondeGuarded Для ловли unhandled ошибок не связанных с flutter уровнем (ui)
+Talker, handle ловит ошибку и выводит с стектрейсомю
+
+FlutterError.onError для ловли ошибок уровня flutter, связанных с ui , но не с логикой
+
+PlatformDispatcher.instance.onError для ошибок уровня платформы, ошибки
+flutter -> ios, android
+
+Talker logTyped, можно свою ошибку создать своего классса
+
+Bloc.observer эррор хендлер блока, прокинуть туда Talker и с кайфом.

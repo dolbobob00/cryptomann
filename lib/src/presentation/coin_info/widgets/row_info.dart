@@ -1,4 +1,3 @@
-import 'package:cryptomann/src/data/coin/coin.dart';
 import 'package:flutter/material.dart';
 
 class RowInfo extends StatelessWidget {
